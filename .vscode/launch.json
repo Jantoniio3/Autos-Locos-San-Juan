@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-AutoslocosApplication<autoslocos>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.autoslocos.autoslocos.AutoslocosApplication",
+            "projectName": "autoslocos",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
