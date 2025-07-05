@@ -1,8 +1,11 @@
 package com.autoslocos.autoslocos.Controller;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class MustacheController {
@@ -21,5 +24,14 @@ public class MustacheController {
     public String contact(Model model){
         return "contact";
     }
+    @GetMapping("/newness")
+    public String newness(Model model){
+        return "newness";
+    }
+    @GetMapping("/login")
+    public String login(Model model){
+        return "Login";
+    }
+
 
 }
