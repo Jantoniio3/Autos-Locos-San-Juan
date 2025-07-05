@@ -17,4 +17,9 @@ public class MustacheController {
         return "index";
     }
 
+    @GetMapping("/contact")
+    public String contact(Model model){
+        return "contact";
+    }
+
 }
