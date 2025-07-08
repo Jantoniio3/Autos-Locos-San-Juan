@@ -27,6 +27,9 @@ public class Vehicle {
     @Column
     private String passenger2; // Segundo pasajero (opcional)
 
+    @Column
+    private String contactNumber; // Número de contacto (opcional)
+
     @Lob
     @Column(columnDefinition = "LONGBLOB")
     private byte[] photo; // Foto del vehículo (opcional)
@@ -41,6 +44,12 @@ public class Vehicle {
     public Vehicle(String name, String driver) {
         this.name = name;
         this.driver = driver;
+    }
+
+    public Vehicle(String name, String driver, String contactNumber) {
+        this.name = name;
+        this.driver = driver;
+        this.contactNumber = contactNumber;
     }
 
     // Getters y Setters
@@ -86,6 +95,14 @@ public class Vehicle {
 
     public void setPassenger2(String passenger2) {
         this.passenger2 = passenger2;
+    }
+
+    public String getContactNumber() {
+        return contactNumber;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
     }
 
     public byte[] getPhoto() {
@@ -136,6 +153,7 @@ public class Vehicle {
                 ", coDriver='" + coDriver + '\'' +
                 ", passenger1='" + passenger1 + '\'' +
                 ", passenger2='" + passenger2 + '\'' +
+                ", contactNumber='" + contactNumber + '\'' +
                 '}';
     }
 }

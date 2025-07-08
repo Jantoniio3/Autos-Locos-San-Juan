@@ -9,8 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
     <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">
 
-
-    <title>Autos Locos San Juan</title>
+    <title>Autos Locos San Juan - Inscripción</title>
     <link rel="stylesheet" href="assets/web/assets/mobirise-icons2/mobirise2.css">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
@@ -28,222 +27,145 @@
     <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css?v=NzfGCw">
     <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css?v=NzfGCw" type="text/css">
 
-
-
-
+    <style>
+        .required-field::after {
+            content: " *";
+            color: red;
+        }
+        .photo-preview {
+            max-width: 200px;
+            max-height: 200px;
+            display: none;
+            margin-top: 10px;
+        }
+    </style>
 </head>
 
 <body>
     <!--Header begin-->
-    <section data-bs-version="5.1" class="menu menu2 cid-uN3KWNffUI" once="menu" id="menu-5-uN3KWNffUI">
-        <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
-            <div class="container">
-                <div class="navbar-brand">
-                    <span class="navbar-logo">
-                        <a href="https://mobiri.se">
-                            <img src="assets/images/favicon.jpg" style="height: 4.3rem;"
-                                class="me-2">
-                        </a>
-                    </span>
-                    <span class="navbar-caption-wrap">
-                        <a
-                            style="font-family: 'Onest', Arial, sans-serif; font-size: 2rem; font-weight: bold; color: #ff5722; letter-spacing: 2px; text-shadow: 2px 2px 8px #00000055;">
-                            Autos Locos San Juan
-                        </a>
-                    </span>
-                </div>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse"
-                    data-target="#navbarSupportedContent" data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                    <div class="hamburger">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav nav-dropdown" data-app-modern-menu="true">
-                        <li class="nav-item">
-                            <a class="nav-link link text-black display-4" href="index.html">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link link text-black display-4" href="gallery.html"
-                                aria-expanded="false">Registro</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link link text-black display-4" href="contact.html">Contacto</a>
-                        </li>
-                    </ul>
-                    <div class="navbar-buttons mbr-section-btn">
-                        <a class="btn btn-primary display-4" href="">Menú</a>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </section>
-
-    <section data-bs-version="5.1" class="header18 cid-uN3KWNhTBs mbr-fullscreen"
-        data-bg-video="https://www.youtube.com/embed/CiQJSR4mYJ4?autoplay=1&amp;loop=1&amp;playlist=CiQJSR4mYJ4&amp;t=20&amp;mute=1&amp;playsinline=1&amp;controls=0&amp;showinfo=0&amp;autohide=1&amp;allowfullscreen=true&amp;mode=transparent"
-        id="hero-16-uN3KWNhTBs">
-
-
-        <div class="mbr-overlay" style="opacity: 0.5; background-color: rgb(0, 0, 0);"></div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="content-wrap col-12 col-md-12">
-                    <h1 class="mbr-section-title mbr-fonts-style mbr-white mb-4 display-1">
-                        <strong>Autos Locos</strong>
-                    </h1>
-
-                    <p class="mbr-fonts-style mbr-text mbr-white mb-4 display-7">La velocidad y la locura te esperan.
-                    </p>
-                    <div class="mbr-section-btn">
-                        <a class="btn btn-white-outline display-7" href=>¡Inscríbete!</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    {{>header}}
     <!--Header end-->
 
     <!--Inscriptions-->
     <section data-bs-version="5.1" class="form5 cid-uN3KWNOWjD" id="contact-form-3-uN3KWNOWjD">
-
-
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-12 content-head">
-                    <div class="mbr-section-head mb-5">
-                        <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
-                            <strong>¡Únete a la Locura!</strong>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="card-title text-center mb-0">
+                            <strong>¡Inscribe tu Auto Loco!</strong>
                         </h3>
+                        <p class="text-center mb-0">Completa todos los campos obligatorios para participar</p>
+                    </div>       
+                    <div class="card-body">
+                        <form id="vehicleForm" action="/addvehicle" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                            <div class="row g-3">
 
+                            <!-- Nombre del Auto -->
+                            <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="vehicleName" name="name" placeholder="Nombre del Auto" required>
+                                <label for="vehicleName">Nombre del Auto *</label>
+                                <div class="invalid-feedback">
+                                Ingresa el nombre del auto.
+                                </div>
+                            </div>
+                            </div>
+
+                            <!-- Piloto Principal -->
+                            <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="driver" name="driver" placeholder="Piloto Principal" required>
+                                <label for="driver">Piloto Principal *</label>
+                                <div class="invalid-feedback">
+                                Ingresa el nombre del piloto.
+                                </div>
+                            </div>
+                            </div>
+
+                            <!-- Teléfono -->
+                            <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="tel" class="form-control" id="contactNumber" name="contactNumber"
+                                placeholder="Teléfono de Contacto" required pattern="[0-9]{9}" maxlength="9">
+                                <label for="contactNumber">Teléfono de Contacto *</label>
+                                <div class="invalid-feedback">
+                                Ingresa un número de 9 dígitos.
+                                </div>
+                            </div>
+                            </div>
+
+                            <!-- Copiloto -->
+                            <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="coDriver" name="coDriver" placeholder="Copiloto (opcional)">
+                                <label for="coDriver">Copiloto (opcional)</label>
+                            </div>
+                            </div>
+
+                            <!-- Pasajero 1 -->
+                            <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="passenger1" name="passenger1" placeholder="Pasajero 1 (opcional)">
+                                <label for="passenger1">Pasajero 1 (opcional)</label>
+                            </div>
+                            </div>
+
+                            <!-- Pasajero 2 -->
+                            <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="passenger2" name="passenger2" placeholder="Pasajero 2 (opcional)">
+                                <label for="passenger2">Pasajero 2 (opcional)</label>
+                            </div>
+                            </div>
+
+                            <!-- Foto del Vehículo -->
+                            <div class="col-md-12">
+                            <label for="vehiclePhoto" class="form-label">Foto del Vehículo *</label>
+                            <input type="file" class="form-control" id="vehiclePhoto" name="photo" accept="image/*" required>
+                            <div class="invalid-feedback">
+                                Sube una imagen del vehículo.
+                            </div>
+                            <small class="text-muted">Formatos permitidos: JPG, PNG, GIF. Tamaño máximo: 5MB.</small>
+                            <div class="mt-2">
+                                <img id="photoPreview" class="img-thumbnail d-none" style="max-width: 200px; max-height: 200px;">
+                            </div>
+                            </div>
+
+                            <!-- Botón de Envío -->
+                            <div class="col-12">
+                            <button class="btn btn-primary w-100 py-3" type="submit">
+                                <i class="bi bi-car-front-fill"></i> Registrar mi Vehículo
+                            </button>
+                            </div>
+                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
-                    <form action="https://mobirise.eu/" method="POST" class="mbr-form form-with-styler"
-                        data-form-title="Form Name"><input type="hidden" name="email" data-form-email="true"
-                            value="iFTdg6VT2FpWJeZYiXiGzD9bcTAtE6BCRv6s9PuBuuhxjLOl0ELvqCmeThvR0R4FBDHb7V5Q1n9GuantEWn728yccoSEQ70E/q+runw8gVqxfQhURqPlmLCLpnqguNES">
-                        <div class="row">
-                            <div hidden="hidden" data-form-alert="" class="alert alert-success col-12">Thanks for
-                                filling out the form!</div>
-                            <div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">
-                                Oops...! some problem!
-                            </div>
-                        </div>
-                        <div class="dragArea row">
-                            <div class="col-md col-sm-12 form-group mb-3" data-for="name">
-                                <input type="text" name="name" placeholder="Nombre" data-form-field="name"
-                                    class="form-control" value="" id="name-contact-form-3-uN3KWNOWjD">
-                            </div>
-                            <div class="col-md col-sm-12 form-group mb-3" data-for="email">
-                                <input type="email" name="email" placeholder="Correo" data-form-field="email"
-                                    class="form-control" value="" id="email-contact-form-3-uN3KWNOWjD">
-                            </div>
-                            <div class="col-12 form-group mb-3 mb-3" data-for="url">
-                                <input type="url" name="url" placeholder="Teléfono" data-form-field="url"
-                                    class="form-control" value="" id="url-contact-form-3-uN3KWNOWjD">
-                            </div>
-                            <div class="col-12 form-group mb-3" data-for="textarea">
-                                <textarea name="textarea" placeholder="Mensaje" data-form-field="textarea"
-                                    class="form-control" id="textarea-contact-form-3-uN3KWNOWjD"></textarea>
-                            </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
-                                <button type="submit" class="btn btn-primary display-7">¡Inscríbete Ya!</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
         </div>
+    </div>
+
+
+
+
     </section>
     <!--Inscriptions end-->
 
     <!--Footer-->
-    <section data-bs-version="5.1" class="footer3 cid-uN3KWNVkIH" once="footers" id="footer-3-uN3KWNVkIH">
-
-
-
-
-
-        <div class="container">
-            <div class="row">
-                <div class="row-links">
-                    <ul class="header-menu">
-
-
-
-
-                        <li class="header-menu-item mbr-fonts-style display-5">
-                            <a href="#" class="text-white">Inicio</a>
-                        </li>
-                        <li class="header-menu-item mbr-fonts-style display-5">
-                            <a href="#" class="text-white">Eventos</a>
-                        </li>
-                        <li class="header-menu-item mbr-fonts-style display-5">
-                            <a href="#" class="text-white">Reglas</a>
-                        </li>
-                        <li class="header-menu-item mbr-fonts-style display-5">
-                            <a href="#" class="text-white">Contacto</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="col-12 mt-4">
-                    <div class="social-row">
-                        <div class="soc-item">
-                            <a href="https://mobiri.se/" target="_blank">
-                                <span class="mbr-iconfont socicon socicon-facebook display-7"></span>
-                            </a>
-                        </div>
-                        <div class="soc-item">
-                            <a href="https://mobiri.se/" target="_blank">
-                                <span class="mbr-iconfont socicon-twitter socicon"></span>
-                            </a>
-                        </div>
-                        <div class="soc-item">
-                            <a href="https://mobiri.se/" target="_blank">
-                                <span class="mbr-iconfont socicon-instagram socicon"></span>
-                            </a>
-                        </div>
-                        <div class="soc-item">
-                            <a href="https://mobiri.se/" target="_blank">
-                                <span class="mbr-iconfont socicon socicon-linkedin"></span>
-                            </a>
-                        </div>
-                        <div class="soc-item">
-                            <a href="https://mobiri.se/" target="_blank">
-                                <span class="mbr-iconfont socicon socicon-twitch"></span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 mt-5">
-                    <p class="mbr-fonts-style copyright display-7">© 2025 Autos Locos. Todos los derechos reservados.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
+    {{>footer}}
     <!--Footer end-->
+    
     <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="assets/parallax/jarallax.js"></script>
     <script src="assets/smoothscroll/smooth-scroll.js"></script>
     <script src="assets/ytplayer/index.js"></script>
     <script src="assets/dropdown/js/navbar-dropdown.js"></script>
-    <script src="assets/vimeoplayer/player.js"></script>
-    <script src="assets/scrollgallery/scroll-gallery.js"></script>
-    <script src="assets/embla/embla.min.js"></script>
-    <script src="assets/embla/script.js"></script>
-    <script src="assets/mbr-switch-arrow/mbr-switch-arrow.js"></script>
     <script src="assets/theme/js/script.js"></script>
-    <script src="assets/formoid/formoid.min.js"></script>
-
+    <script src="assets/main.js"></script>
+        
 
 </body>
-
 </html>

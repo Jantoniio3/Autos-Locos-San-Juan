@@ -33,70 +33,40 @@
 
     <section class="py-5">
         <div class="container">
-                        <div class="row justify-content-center">
+            <div class="row justify-content-center">
                 <div class="col-12 content-head">
                     <div class="mbr-section-head mb-5">
                         <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
                             <strong>Noticias</strong>
                         </h3>
-
                     </div>
                 </div>
             </div>
             <div class="row">
-                <!-- Ejemplo de novedad, repite este bloque para cada novedad -->
+                {{#newnessList}}
                 <div class="col-md-6 col-lg-4 mb-4">
                     <div class="card h-100 shadow">
-                        <img src="/assets/images/novedad1.jpg" class="card-img-top" alt="Título novedad">
+                        {{#fileName}}
+                        <a href="/newness/file/{{id}}" target="_blank">
+                            <img src="/assets/images/pdf-icon.png" class="card-img-top" style="object-fit:cover; height:220px;">
+                        </a>
+                        {{/fileName}}
                         <div class="card-body">
-                            <h5 class="card-title">Título de la novedad</h5>
-                            <p class="card-text">Descripción breve de la novedad o noticia importante del evento.</p>
-                            <p class="card-text"><small class="text-muted">Fecha: 2024-06-01</small></p>
+                            <h5 class="card-title">{{title}}</h5>
+                            <p class="card-text">{{description}}</p>
+                            <p class="card-text"><small class="text-muted">Fecha: {{date}}</small></p>
+                            {{#fileName}}
+                            <a href="/newness/file/{{id}}" class="btn btn-outline-primary btn-sm" target="_blank">Ver archivo adjunto</a>
+                            {{/fileName}}
                         </div>
                     </div>
                 </div>
-                                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card h-100 shadow">
-                        <img src="/assets/images/novedad1.jpg" class="card-img-top" alt="Título novedad">
-                        <div class="card-body">
-                            <h5 class="card-title">Título de la novedad</h5>
-                            <p class="card-text">Descripción breve de la novedad o noticia importante del evento.</p>
-                            <p class="card-text"><small class="text-muted">Fecha: 2024-06-01</small></p>
-                        </div>
-                    </div>
+                {{/newnessList}}
+                {{^newnessList}}
+                <div class="col-12 text-center">
+                    <p>No hay novedades para mostrar.</p>
                 </div>
-                                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card h-100 shadow">
-                        <img src="/assets/images/novedad1.jpg" class="card-img-top" alt="Título novedad">
-                        <div class="card-body">
-                            <h5 class="card-title">Título de la novedad</h5>
-                            <p class="card-text">Descripción breve de la novedad o noticia importante del evento.</p>
-                            <p class="card-text"><small class="text-muted">Fecha: 2024-06-01</small></p>
-                        </div>
-                    </div>
-                </div>
-                                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card h-100 shadow">
-                        <img src="/assets/images/novedad1.jpg" class="card-img-top" alt="Título novedad">
-                        <div class="card-body">
-                            <h5 class="card-title">Título de la novedad</h5>
-                            <p class="card-text">Descripción breve de la novedad o noticia importante del evento.</p>
-                            <p class="card-text"><small class="text-muted">Fecha: 2024-06-01</small></p>
-                        </div>
-                    </div>
-                </div>
-                                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card h-100 shadow">
-                        <img src="/assets/images/novedad1.jpg" class="card-img-top" alt="Título novedad">
-                        <div class="card-body">
-                            <h5 class="card-title">Título de la novedad</h5>
-                            <p class="card-text">Descripción breve de la novedad o noticia importante del evento.</p>
-                            <p class="card-text"><small class="text-muted">Fecha: 2024-06-01</small></p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Fin de ejemplo -->
-                <!-- Puedes insertar aquí un bucle Mustache o Thymeleaf para mostrar todas las novedades -->
+                {{/newnessList}}
             </div>
         </div>
     </section>
