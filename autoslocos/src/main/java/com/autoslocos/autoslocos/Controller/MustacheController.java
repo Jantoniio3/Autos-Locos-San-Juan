@@ -48,6 +48,10 @@ public class MustacheController {
     public String inscriptions(Model model) {
         return "inscriptions";
     }
+    @GetMapping("/admin")
+    public String admin(Model model) {
+        return "admin";
+    }
 
     @PostMapping("/addvehicle")
     public String addVehicle(
