@@ -2,6 +2,9 @@ package com.autoslocos.autoslocos.Controller;
 
 import com.autoslocos.autoslocos.Entity.Vehicle;
 import com.autoslocos.autoslocos.Service.VehicleService;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -9,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.security.web.csrf.CsrfToken;
 
 @Controller
 public class MustacheController {
@@ -40,8 +44,15 @@ public class MustacheController {
     }
 
     @GetMapping("/login")
-    public String login(Model model){
-        return "Login";
+    public String login(Model model, HttpServletRequest request) {
+        // Obtener token CSRF
+        CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("_csrf", csrfToken);
+        
+        // Para debug - verifica que el token se está generando
+        System.out.println("CSRF Token: " + (csrfToken != null ? csrfToken.getToken() : "NULL"));
+        
+        return "login";
     }
 
     @GetMapping("/inscriptions")

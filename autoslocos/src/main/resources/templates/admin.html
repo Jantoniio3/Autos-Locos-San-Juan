@@ -1,32 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <!-- Site made with Mobirise Website Builder v6.0.5, https://mobirise.com -->
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="generator" content="Mobirise v6.0.5, mobirise.com">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-    <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
-
-    <title>Autos Locos San Juan</title>
-    <link rel="stylesheet" href="/assets/web/assets/mobirise-icons2/mobirise2.css">
-    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-grid.min.css">
-    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-reboot.min.css">
-    <link rel="stylesheet" href="/assets/parallax/jarallax.css">
-    <link rel="stylesheet" href="/assets/dropdown/css/style.css">
-    <link rel="stylesheet" href="/assets/socicon/css/styles.css">
-    <link rel="stylesheet" href="/assets/theme/css/style.css">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;700&display=swap&display=swap"
-        as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Onest:wght@400;700&display=swap&display=swap">
-    </noscript>
-    <link rel="preload" as="style" href="/assets/mobirise/css/mbr-additional.css?v=NzfGCw">
-    <link rel="stylesheet" href="/assets/mobirise/css/mbr-additional.css?v=NzfGCw" type="text/css">
-
-
+    <!-- ... (mantén tus metadatos y estilos existentes) ... -->
 </head>
 <body>
     {{>header}}
@@ -37,42 +12,42 @@
                 <div class="col-12 content-head">
                     <div class="mbr-section-head mb-5">
                         <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
-                            <strong>Noticias</strong>
+                            <strong>Vehículos Inscritos</strong>
                         </h3>
                     </div>
                 </div>
             </div>
             <div class="row">
-                {{#newnessList}}
+                {{#vehicles}}
                 <div class="col-md-6 col-lg-4 mb-4">
                     <div class="card h-100 shadow">
-                        {{#fileName}}
-                        <a href="/newness/file/{{id}}" target="_blank">
-                            <img src="/assets/images/pdf-icon.png" class="card-img-top" style="object-fit:cover; height:220px;">
-                        </a>
-                        {{/fileName}}
+                        {{#photo}}
+                        <img src="/vehicles/photo/{{id}}" class="card-img-top" style="object-fit:cover; height:220px;">
+                        {{/photo}}
+                        {{^photo}}
+                        <img src="/assets/images/car-placeholder.png" class="card-img-top" style="object-fit:cover; height:220px;">
+                        {{/photo}}
                         <div class="card-body">
-                            <h5 class="card-title">{{title}}</h5>
-                            <p class="card-text">{{description}}</p>
-                            <p class="card-text"><small class="text-muted">Fecha: {{date}}</small></p>
-                            {{#fileName}}
-                            <a href="/newness/file/{{id}}" class="btn btn-outline-primary btn-sm" target="_blank">Ver archivo adjunto</a>
-                            {{/fileName}}
+                            <h5 class="card-title">{{name}}</h5>
+                            <p class="card-text"><strong>Piloto:</strong> {{driver}}</p>
+                            {{#coDriver}}<p class="card-text"><strong>Copiloto:</strong> {{coDriver}}</p>{{/coDriver}}
+                            {{#passenger1}}<p class="card-text"><strong>Pasajero 1:</strong> {{passenger1}}</p>{{/passenger1}}
+                            {{#passenger2}}<p class="card-text"><strong>Pasajero 2:</strong> {{passenger2}}</p>{{/passenger2}}
+                            {{#contactNumber}}<p class="card-text"><strong>Contacto:</strong> {{contactNumber}}</p>{{/contactNumber}}
                         </div>
                     </div>
                 </div>
-                {{/newnessList}}
-                {{^newnessList}}
+                {{/vehicles}}
+                {{^vehicles}}
                 <div class="col-12 text-center">
-                    <p>No hay novedades para mostrar.</p>
+                    <p>No hay vehículos inscritos.</p>
                 </div>
-                {{/newnessList}}
+                {{/vehicles}}
             </div>
         </div>
     </section>
 
     {{>footer}}
     <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/assets/theme/js/script.js"></script>
 </body>
 </html>

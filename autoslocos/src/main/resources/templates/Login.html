@@ -29,12 +29,21 @@
         <div class="card login-card shadow">
             <div class="card-body">
                 <h3 class="card-title text-center mb-4"><strong>Iniciar sesión</strong></h3>
-                {{#error}}
-                <div class="alert alert-danger" role="alert">
+                
+                <!-- Mensaje de error (manejado por JavaScript) -->
+                <div id="error-message" class="alert alert-danger d-none" role="alert">
                     Credenciales incorrectas
                 </div>
-                {{/error}}
-                <form method="post" action="/login">
+                
+                <!-- Mensaje de logout (manejado por JavaScript) -->
+                <div id="logout-message" class="alert alert-success d-none" role="alert">
+                    Has cerrado sesión correctamente
+                </div>
+                
+                <form action="/login" method="post">
+                    <!-- Token CSRF (OBLIGATORIO) -->
+                    <input type="hidden" name="{{_csrf.parameterName}}" value="{{_csrf.token}}">
+                    
                     <div class="mb-3">
                         <label for="username" class="form-label">Usuario</label>
                         <input type="text" class="form-control" id="username" name="username" required autofocus>
@@ -49,5 +58,20 @@
         </div>
     </div>
     <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Script para manejar mensajes de error/logout desde la URL -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mostrar mensaje de error si está en la URL
+            if(window.location.search.includes('error=true')) {
+                document.getElementById('error-message').classList.remove('d-none');
+            }
+            
+            // Mostrar mensaje de logout si está en la URL
+            if(window.location.search.includes('logout=true')) {
+                document.getElementById('logout-message').classList.remove('d-none');
+            }
+        });
+    </script>
 </body>
 </html>
