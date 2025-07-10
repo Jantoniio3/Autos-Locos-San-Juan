@@ -49,10 +49,8 @@ public class Admin {
 
     // Encripta la contraseña al asignarla
     public void setPassword(String password) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        this.password = encoder.encode(password);
+        this.password = password;
     }
-
     // Método para verificar contraseña
     public boolean checkPassword(String rawPassword) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();

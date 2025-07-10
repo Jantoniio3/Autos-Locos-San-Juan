@@ -1,12 +1,53 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <!-- ... (mantén tus metadatos y estilos existentes) ... -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="generator" content="Mobirise v6.0.5, mobirise.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+
+    <title>Autos Locos San Juan</title>
+    <link rel="stylesheet" href="/assets/web/assets/mobirise-icons2/mobirise2.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="/assets/parallax/jarallax.css">
+    <link rel="stylesheet" href="/assets/dropdown/css/style.css">
+    <link rel="stylesheet" href="/assets/socicon/css/styles.css">
+    <link rel="stylesheet" href="/assets/theme/css/style.css">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;700&display=swap&display=swap"
+        as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Onest:wght@400;700&display=swap&display=swap">
+    </noscript>
+    <link rel="preload" as="style" href="/assets/mobirise/css/mbr-additional.css?v=NzfGCw">
+    <link rel="stylesheet" href="/assets/mobirise/css/mbr-additional.css?v=NzfGCw" type="text/css">
+    <meta charset="UTF-8">
+    <title>Panel de Administración</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <style>
+        .admin-section { display: none; }
+        .admin-section.active { display: block; }
+    </style>
 </head>
 <body>
-    {{>header}}
 
-    <section class="py-5">
+{{> header }}
+
+<div class="container py-4">
+    <!-- Navegación entre secciones -->
+    <div class="mb-4 text-center">
+        <button class="btn btn-primary me-2" onclick="showSection('vehiculos')">Vehículos inscritos</button>
+        <button class="btn btn-secondary me-2" onclick="showSection('novedades')">Novedades</button>
+        <button class="btn btn-secondary" onclick="showSection('galeria')">Galería</button>
+    </div>
+
+    <!-- Sección de vehículos -->
+    <div id="vehiculos" class="admin-section active">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12 content-head">
@@ -17,37 +58,99 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                {{#vehicles}}
-                <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card h-100 shadow">
-                        {{#photo}}
-                        <img src="/vehicles/photo/{{id}}" class="card-img-top" style="object-fit:cover; height:220px;">
-                        {{/photo}}
-                        {{^photo}}
-                        <img src="/assets/images/car-placeholder.png" class="card-img-top" style="object-fit:cover; height:220px;">
-                        {{/photo}}
-                        <div class="card-body">
-                            <h5 class="card-title">{{name}}</h5>
-                            <p class="card-text"><strong>Piloto:</strong> {{driver}}</p>
-                            {{#coDriver}}<p class="card-text"><strong>Copiloto:</strong> {{coDriver}}</p>{{/coDriver}}
-                            {{#passenger1}}<p class="card-text"><strong>Pasajero 1:</strong> {{passenger1}}</p>{{/passenger1}}
-                            {{#passenger2}}<p class="card-text"><strong>Pasajero 2:</strong> {{passenger2}}</p>{{/passenger2}}
-                            {{#contactNumber}}<p class="card-text"><strong>Contacto:</strong> {{contactNumber}}</p>{{/contactNumber}}
+        </div>
+        <div class="row">
+            {{#vehicles}}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow">
+                    {{#photo}}
+                    <img src="{{photo}}" class="card-img-top" style="object-fit:contain; height:220px; background-color:#f8f9fa;" id="vehicleImage-{{id}}">
+                    {{/photo}}
+                    {{^photo}}
+                    <img src="/assets/images/car-placeholder.png" class="card-img-top" style="object-fit:contain; height:220px; background-color:#f8f9fa;">
+                    {{/photo}}
+                    <div class="card-body">
+                        <h5 class="card-title">{{name}}</h5>
+                        <p class="card-text"><strong>Piloto:</strong> {{driver}}</p>
+                        {{#coDriver}}<p class="card-text"><strong>Copiloto:</strong> {{coDriver}}</p>{{/coDriver}}
+                        {{#passenger1}}<p class="card-text"><strong>Pasajero 1:</strong> {{passenger1}}</p>{{/passenger1}}
+                        {{#passenger2}}<p class="card-text"><strong>Pasajero 2:</strong> {{passenger2}}</p>{{/passenger2}}
+                        {{#contactNumber}}<p class="card-text"><strong>Contacto:</strong> {{contactNumber}}</p>{{/contactNumber}}
+                        
+                        <!-- Botones de acción -->
+                        <div class="d-flex justify-content-between mt-3">
+                            {{#photo}}
+                            <a href="{{photo}}" class="btn btn-outline-primary btn-sm" download="{{name}}-imagen.jpg">
+                                <i class="bi bi-download"></i> Descargar Imagen
+                            </a>
+                            {{/photo}}
+                            
+                            <button class="btn btn-outline-danger btn-sm delete-vehicle" data-id="{{id}}">
+                                <i class="bi bi-trash"></i> Eliminar
+                            </button>
                         </div>
                     </div>
                 </div>
-                {{/vehicles}}
-                {{^vehicles}}
-                <div class="col-12 text-center">
-                    <p>No hay vehículos inscritos.</p>
-                </div>
-                {{/vehicles}}
             </div>
+            {{/vehicles}}
+            {{^vehicles}}
+            <div class="col-12 text-center">
+                <p>No hay vehículos inscritos.</p>
+            </div>
+            {{/vehicles}}
         </div>
-    </section>
+    </div>
 
-    {{>footer}}
-    <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Sección de novedades -->
+    <div id="novedades" class="admin-section">
+        <h2>Novedades</h2>
+        <p>Formulario de novedades próximamente...</p>
+    </div>
+
+    <!-- Sección de galería -->
+    <div id="galeria" class="admin-section">
+        <h2>Galería</h2>
+        <p>Formulario de galería próximamente...</p>
+    </div>
+</div>
+
+{{> footer }}
+
+<script>
+    function showSection(sectionId) {
+        const sections = document.querySelectorAll('.admin-section');
+        sections.forEach(sec => sec.classList.remove('active'));
+
+        document.getElementById(sectionId).classList.add('active');
+    }
+</script>
+
+<script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.querySelectorAll('.delete-vehicle').forEach(button => {
+        button.addEventListener('click', function () {
+            const vehicleId = this.getAttribute('data-id');
+            if (confirm('¿Estás seguro de que deseas eliminar este vehículo?')) {
+                const csrfToken = document.querySelector('meta[name="_csrf"]').content;
+                
+                fetch('/deletevehicle', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    body: new URLSearchParams({ id: vehicleId })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        location.reload();
+                    } else {
+                        alert('Error al eliminar el vehículo');
+                    }
+                });
+            }
+        });
+    });
+</script>
 </body>
 </html>

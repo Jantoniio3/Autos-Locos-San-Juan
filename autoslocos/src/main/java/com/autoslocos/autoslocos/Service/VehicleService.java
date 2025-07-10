@@ -88,4 +88,5 @@ public class VehicleService {
             vehicleRepository.save(vehicle);
         });
     }
+
 }

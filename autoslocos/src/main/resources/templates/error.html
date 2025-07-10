@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <title>Error - Autos Locos San Juan</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Iconos de Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Estilos personalizados -->
+    <style>
+        .error-container {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .error-card {
+            max-width: 600px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .error-header {
+            background-color: #dc3545;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .error-body {
+            padding: 30px;
+        }
+        .error-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            color: #dc3545;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    {{>header}}
+
+    <!-- Contenido principal -->
+    <div class="container error-container">
+        <div class="error-card">
+            <div class="error-header">
+                <h1><i class="bi bi-exclamation-triangle-fill"></i> Error</h1>
+            </div>
+            <div class="error-body text-center">
+                <i class="bi bi-exclamation-octagon error-icon"></i>
+                <h2 class="mb-4">¡Oops! Algo salió mal</h2>
+                <p class="lead">Lo sentimos, hemos encontrado un problema al procesar tu solicitud.</p>
+                <p>Puedes intentar recargar la página o volver a la página de inicio.</p>
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mt-4">
+                    <a href="/" class="btn btn-primary btn-lg px-4 gap-3">
+                        <i class="bi bi-house-door"></i> Volver al inicio
+                    </a>
+                    <a href="mailto:soporte@autoslocos.com" class="btn btn-outline-secondary btn-lg px-4">
+                        <i class="bi bi-envelope"></i> Contactar soporte
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    {{>footer}}
+
+    <!-- Bootstrap 5 JS Bundle con Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
