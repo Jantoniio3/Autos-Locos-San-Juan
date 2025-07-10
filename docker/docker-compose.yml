@@ -1,0 +1,38 @@
+version: '3.9'
+
+services:
+  db:
+    image: mysql:8.0.33
+    container_name: autoslocos-db
+    restart: always
+    environment:
+      - MYSQL_DATABASE=autoslocos
+      - MYSQL_ROOT_PASSWORD=password
+    ports:
+      - "3306:3306"  # Map port 3307 on the host to port 3306 in the container
+    volumes:
+      - db_data:/var/lib/mysql  # Persist database data in a Docker volume
+    networks:
+      - trippins-network  # Connect to the custom network
+
+  web:
+    image: jantoniio3/autoslocos:latest 
+    container_name: autoslocos
+    ports:
+      - "8443:8443"  # Map port 443 on the host to port 8443 in the container
+    depends_on:
+      - db  # Ensure the database service is started before the web service
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/autoslocos  # Database connection URL
+      - SPRING_DATASOURCE_USERNAME=root  # Database username
+      - SPRING_DATASOURCE_PASSWORD=password  # Database password
+      - JWT_SECRET=password  # Secret key for JWT
+    restart: on-failure  # Restart the container on failure
+    networks:
+      - trippins-network  # Connect to the custom network
+
+volumes:
+  db_data:  # Define the volume for database data
+
+networks:
+  trippins-network:  # Define the custom network

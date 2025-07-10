@@ -7,6 +7,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 
 @Configuration
 public class SecurityConfig {
@@ -25,9 +27,9 @@ public class SecurityConfig {
                     "/", "/index", "/contact", "/inscriptions", 
                     "/newness", "/addvehicle", "/login", 
                     "/assets/**"
-                ).permitAll() // Rutas públicas
-                .requestMatchers("/admin").hasRole("ADMIN") // Solo para admins
-                .anyRequest().authenticated() // El resto requiere login
+                ).permitAll()
+                .requestMatchers("/admin","/deletevehicle","/addsponsors").hasRole("ADMIN")
+                .anyRequest().authenticated()
             )
             .formLogin(form -> form
                 .loginPage("/login")
@@ -39,6 +41,10 @@ public class SecurityConfig {
             .logout(logout -> logout
                 .logoutSuccessUrl("/?logout=true")
                 .permitAll()
+            )
+            .csrf(csrf -> csrf
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler()::handle)
             )
             .authenticationProvider(authenticationProvider());
 

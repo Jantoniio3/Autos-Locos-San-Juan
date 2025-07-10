@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="generator" content="Mobirise v6.0.5, mobirise.com">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-    <meta name="_csrf" content="${_csrf.token}"/>
-    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
 
     <title>Autos Locos San Juan</title>
@@ -43,7 +43,8 @@
     <div class="mb-4 text-center">
         <button class="btn btn-primary me-2" onclick="showSection('vehiculos')">Vehículos inscritos</button>
         <button class="btn btn-secondary me-2" onclick="showSection('novedades')">Novedades</button>
-        <button class="btn btn-secondary" onclick="showSection('galeria')">Galería</button>
+        <button class="btn btn-secondary me-2" onclick="showSection('galeria')">Galería</button>
+        <button class="btn btn-secondary" onclick="showSection('patrocinadores')">Patrocinadores</button>
     </div>
 
     <!-- Sección de vehículos -->
@@ -112,6 +113,24 @@
         <h2>Galería</h2>
         <p>Formulario de galería próximamente...</p>
     </div>
+
+    <!-- Sección de patrocinadores -->
+    <div id="patrocinadores" class="admin-section">
+        <h2>Patrocinadores</h2>
+        <form id="sponsorForm" enctype="multipart/form-data" action="/addsponsors" method="post" class="mb-4">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+            <div class="mb-3">
+                <label for="sponsorName" class="form-label">Nombre del patrocinador</label>
+                <input type="text" class="form-control" id="sponsorName" name="name" required>
+            </div>
+            <div class="mb-3">
+                <label for="sponsorLogo" class="form-label">Logo (imagen)</label>
+                <input type="file" class="form-control" id="sponsorLogo" name="logo" accept="image/*" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Inscribir Patrocinador</button>
+        </form>
+        <div id="sponsorMessage"></div>
+    </div>
 </div>
 
 {{> footer }}
@@ -127,30 +146,45 @@
 
 <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script>
-    document.querySelectorAll('.delete-vehicle').forEach(button => {
-        button.addEventListener('click', function () {
-            const vehicleId = this.getAttribute('data-id');
-            if (confirm('¿Estás seguro de que deseas eliminar este vehículo?')) {
-                const csrfToken = document.querySelector('meta[name="_csrf"]').content;
-                
-                fetch('/deletevehicle', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        'X-CSRF-TOKEN': csrfToken
-                    },
-                    body: new URLSearchParams({ id: vehicleId })
-                })
-                .then(response => {
-                    if (response.ok) {
-                        location.reload();
-                    } else {
-                        alert('Error al eliminar el vehículo');
-                    }
-                });
+document.querySelectorAll('.delete-vehicle').forEach(button => {
+    button.addEventListener('click', async function() {
+        const vehicleId = this.dataset.id;
+        if (!confirm('¿Eliminar este vehículo?')) return;
+
+        // Leer el token CSRF de la cookie
+        const csrfToken = document.cookie
+            .split('; ')
+            .find(row => row.startsWith('XSRF-TOKEN='))
+            ?.split('=')[1];
+
+        if (!csrfToken) {
+            alert('No se encontró el token CSRF');
+            return;
+        }
+
+        try {
+            const response = await fetch('/deletevehicle', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-XSRF-TOKEN': csrfToken
+                },
+                body: new URLSearchParams({ id: vehicleId }),
+                credentials: 'include'
+            });
+
+            if (!response.ok) {
+                const error = await response.text();
+                throw new Error(error || 'Error en la solicitud');
             }
-        });
+
+            alert(await response.text());
+            location.reload();
+        } catch (error) {
+            alert(error.message);
+        }
     });
+});
 </script>
 </body>
 </html>
