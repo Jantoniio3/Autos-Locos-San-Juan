@@ -111,7 +111,16 @@
     <!-- Sección de galería -->
     <div id="galeria" class="admin-section">
         <h2>Galería</h2>
-        <p>Formulario de galería próximamente...</p>
+        <form id="galleryForm" enctype="multipart/form-data" action="/uploadgallery" method="post" class="mb-4">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+            <div class="mb-3">
+                <label for="galleryImages" class="form-label">Selecciona imágenes para la galería</label>
+                <input type="file" class="form-control" id="galleryImages" name="images" accept="image/*" multiple required>
+            </div>
+            <button type="submit" class="btn btn-primary">Subir Imágenes</button>
+        </form>
+        <div id="galleryMessage"></div>
+        
     </div>
 
     <!-- Sección de patrocinadores -->

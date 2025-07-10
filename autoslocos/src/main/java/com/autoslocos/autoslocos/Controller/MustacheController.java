@@ -4,9 +4,14 @@ import com.autoslocos.autoslocos.Entity.Vehicle;
 import com.autoslocos.autoslocos.Service.VehicleService;
 import com.autoslocos.autoslocos.Service.SponsorService;
 import com.autoslocos.autoslocos.Entity.Sponsor;
+import com.autoslocos.autoslocos.Entity.Image;
+import com.autoslocos.autoslocos.Repository.ImageRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
+import org.springframework.http.ContentDisposition;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,8 +21,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
 
@@ -27,15 +30,17 @@ public class MustacheController {
 
     private final VehicleService vehicleService;
     private final SponsorService sponsorService;
+    private final ImageRepository imageRepository;
 
-    public MustacheController(VehicleService vehicleService, SponsorService sponsorService) {
+    public MustacheController(VehicleService vehicleService, SponsorService sponsorService, ImageRepository imageRepository) {
         this.vehicleService = vehicleService;
         this.sponsorService = sponsorService;
+        this.imageRepository = imageRepository;
     }
 
     // Elimina el @ModelAttribute de aquí y usa el GlobalControllerAdvice
     
-    @GetMapping("/index")
+    @GetMapping("/inicio")
     public String index(Model model) {
         return "index";
     }
@@ -45,12 +50,12 @@ public class MustacheController {
         return "index";
     }
 
-    @GetMapping("/contact")
+    @GetMapping("/contacto")
     public String contact(Model model){
         return "contact";
     }
 
-    @GetMapping("/newness")
+    @GetMapping("/novedades")
     public String newness(Model model){
         return "newness";
     }
@@ -108,5 +113,34 @@ public class MustacheController {
             redirectAttributes.addFlashAttribute("error", "Error al registrar el vehículo: " + e.getMessage());
             return "redirect:/inscriptions";
         }
+    }
+
+    @GetMapping("/galleria")
+    public String gallery(Model model) {
+        List<Image> images = imageRepository.findAll();
+        List<Map<String, String>> imageList = new ArrayList<>();
+        for (Image img : images) {
+            String base64 = Base64.getEncoder().encodeToString(img.getImageData());
+            Map<String, String> map = new HashMap<>();
+            map.put("id", img.getId().toString());
+            map.put("base64", base64);
+            imageList.add(map);
+        }
+        model.addAttribute("images", imageList);
+        return "gallery";
+    }
+    @GetMapping("/download-image/{id}")
+    public ResponseEntity<byte[]> downloadImage(@PathVariable String id) {
+        Optional<Image> imageOpt = imageRepository.findById(Long.valueOf(id));
+        if (imageOpt.isPresent()) {
+            Image image = imageOpt.get();
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.IMAGE_JPEG);
+            headers.setContentDisposition(ContentDisposition.builder("attachment")
+                    .filename("image_" + id + ".jpg")
+                    .build());
+            return new ResponseEntity<>(image.getImageData(), headers, HttpStatus.OK);
+        }
+        return ResponseEntity.notFound().build();
     }
 }

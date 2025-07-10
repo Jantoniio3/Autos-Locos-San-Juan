@@ -24,11 +24,11 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
-                    "/", "/index", "/contact", "/inscriptions", 
-                    "/newness", "/addvehicle", "/login","/patrocinadores", 
+                    "/", "/inicio", "/contacto", "/inscriptions", 
+                    "/novedades", "/addvehicle", "/login","/patrocinadores","/galleria", 
                     "/assets/**"
                 ).permitAll()
-                .requestMatchers("/admin","/deletevehicle","/addsponsors").hasRole("ADMIN")
+                .requestMatchers("/admin","/deletevehicle","/addsponsors","/uploadgallery").hasRole("ADMIN")
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form

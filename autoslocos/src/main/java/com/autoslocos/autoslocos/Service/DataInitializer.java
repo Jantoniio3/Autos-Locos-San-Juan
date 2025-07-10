@@ -35,15 +35,15 @@ public class DataInitializer {
 
             // Lista de sponsors
             List<String> sponsorNames = List.of(
-                    "Pilla un Pollo", "Prime Energy", "CYC Vías", "Lamantis Performance",
+                    "Ayuntamiento San Juan de la Nava", "Gaman Mobility", "Prime Energy", "CYC Vías", "Lamantis Performance",
                     "Transportes y Excavaciones Rodrigo", "Carnicería El Músico", "Carpintería Caraballo",
                     "Prao Cabo", "Cerebellium Apps", "Transportes y Excavaciones Galo",
                     "Clínica de Logopedia Patricia López", "Taller Jairo García", "JM Seguros",
                     "Huevos Redondo", "Taller Chapa y Pintura RG", "Hijos de Justo", "RMC, S.L.",
                     "Pintores Carlos", "Carpintería y Ebanistería Hermanos Yuste", "Carnes Rafa González",
                     "Administración de Lotería La Churrería", "Cocinas Aparicio Gómez",
-                    "Bar Restaurante La Piscina", "Ganadería Limusín La Nogala", "Hormigones Menga",
-                    "Malafama Barber", "BAR NKJAVI"
+                    "Bar Restaurante La Piscina", "Hormigones Menga",
+                    "Malafama Barber", "BAR NKJAVI", "Electricidad Peral","Pilla un Pollo"
             );
 
             for (String name : sponsorNames) {

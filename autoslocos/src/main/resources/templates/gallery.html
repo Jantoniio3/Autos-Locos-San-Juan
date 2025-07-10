@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <!-- Site made with Mobirise Website Builder v6.0.5, https://mobirise.com -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="generator" content="Mobirise v6.0.5, mobirise.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+
+    <title>Autos Locos San Juan</title>
+    <link rel="stylesheet" href="/assets/web/assets/mobirise-icons2/mobirise2.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="/assets/parallax/jarallax.css">
+    <link rel="stylesheet" href="/assets/dropdown/css/style.css">
+    <link rel="stylesheet" href="/assets/socicon/css/styles.css">
+    <link rel="stylesheet" href="/assets/theme/css/style.css">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;700&display=swap&display=swap"
+        as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Onest:wght@400;700&display=swap&display=swap">
+    </noscript>
+    <link rel="preload" as="style" href="/assets/mobirise/css/mbr-additional.css?v=NzfGCw">
+    <link rel="stylesheet" href="/assets/mobirise/css/mbr-additional.css?v=NzfGCw" type="text/css">
+
+
+</head>
+<body>
+    {{>header}}
+
+    <section class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 content-head">
+                    <div class="mbr-section-head mb-5">
+                        <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
+                            <strong>Patrocinadores</strong>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {{#images}}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow text-center">
+                        <img src="data:image/jpeg;base64,{{base64}}" class="card-img-top" style="object-fit:cover; height:260px; background-color:#f8f9fa; margin:auto; max-width:100%;">
+                        <div class="card-body">
+                            <a href="/download-image/{{id}}" class="btn btn-outline-primary btn-sm" download="{{id}}.jpg">
+                                <i class="bi bi-download"></i>Descargar imagen
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {{/images}}
+                {{^images}}
+                <div class="col-12 text-center">
+                    <p>No hay imágenes en la galería.</p>
+                </div>
+                {{/images}}
+            </div>
+        </div>
+    </section>
+
+    {{>footer}}
+    <script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/theme/js/script.js"></script>
+</body>
+</html>

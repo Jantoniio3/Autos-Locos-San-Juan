@@ -3,7 +3,9 @@ package com.autoslocos.autoslocos.Controller;
 
 import com.autoslocos.autoslocos.Entity.Vehicle;
 import com.autoslocos.autoslocos.Entity.Sponsor;
+import com.autoslocos.autoslocos.Entity.Image;
 import com.autoslocos.autoslocos.Repository.VehicleRepository;
+import com.autoslocos.autoslocos.Repository.ImageRepository;
 import com.autoslocos.autoslocos.Service.*;
 
 import org.springframework.http.HttpStatus;
@@ -36,11 +38,13 @@ public class AdminController {
     private final VehicleService vehicleService;
     private final VehicleRepository vehicleRepository;
     private final SponsorService sponsorService;
+    private final ImageRepository imageRepository;
 
-    public AdminController(VehicleRepository vehicleRepository, VehicleService vehicleService, SponsorService sponsorService) {
+    public AdminController(VehicleRepository vehicleRepository, VehicleService vehicleService, SponsorService sponsorService, ImageRepository imageRepository) {
         this.vehicleRepository = vehicleRepository;
         this.vehicleService = vehicleService;
         this.sponsorService = sponsorService;
+        this.imageRepository = imageRepository;
     }
 
 
@@ -103,6 +107,24 @@ public class AdminController {
         } catch (Exception e) {
             return "redirect:/admin?error=true";
         }
+        return "redirect:/admin";
+    }
+    @PostMapping("/uploadgallery")
+    public String uploadGallery(@RequestParam("images") MultipartFile[] images, RedirectAttributes redirectAttributes) {
+        int count = 0;
+        for (MultipartFile file : images) {
+            if (!file.isEmpty()) {
+                try {
+                    byte[] bytes = file.getBytes();
+                    Image image = new Image(bytes);
+                    imageRepository.save(image);
+                    count++;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        redirectAttributes.addFlashAttribute("galleryMessage", count + " imagen(es) subida(s) correctamente.");
         return "redirect:/admin";
     }
 }
