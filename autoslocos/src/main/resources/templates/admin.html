@@ -105,7 +105,27 @@
     <!-- Sección de novedades -->
     <div id="novedades" class="admin-section">
         <h2>Novedades</h2>
-        <p>Formulario de novedades próximamente...</p>
+        <form id="newnessForm" enctype="multipart/form-data" action="/addnewness" method="post" class="mb-4">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+            <div class="mb-3">
+                <label for="newnessTitle" class="form-label">Título</label>
+                <input type="text" class="form-control" id="newnessTitle" name="title" required>
+            </div>
+            <div class="mb-3">
+                <label for="newnessDescription" class="form-label">Descripción</label>
+                <textarea class="form-control" id="newnessDescription" name="description" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="newnessImage" class="form-label">Imagen (opcional)</label>
+                <input type="file" class="form-control" id="newnessImage" name="image" accept="image/*">
+            </div>
+            <div class="mb-3">
+                <label for="newnessDocument" class="form-label">Documento (opcional)</label>
+                <input type="file" class="form-control" id="newnessDocument" name="document">
+            </div>
+            <button type="submit" class="btn btn-primary">Publicar</button>
+        </form>
+        <div id="newnessMessage"></div>
     </div>
 
     <!-- Sección de galería -->

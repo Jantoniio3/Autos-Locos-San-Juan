@@ -6,6 +6,8 @@ import com.autoslocos.autoslocos.Service.SponsorService;
 import com.autoslocos.autoslocos.Entity.Sponsor;
 import com.autoslocos.autoslocos.Entity.Image;
 import com.autoslocos.autoslocos.Repository.ImageRepository;
+import com.autoslocos.autoslocos.Entity.Newness;
+import com.autoslocos.autoslocos.Service.NewnessService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -31,11 +33,13 @@ public class MustacheController {
     private final VehicleService vehicleService;
     private final SponsorService sponsorService;
     private final ImageRepository imageRepository;
+    private final NewnessService newnessService;
 
-    public MustacheController(VehicleService vehicleService, SponsorService sponsorService, ImageRepository imageRepository) {
+    public MustacheController(VehicleService vehicleService, SponsorService sponsorService, ImageRepository imageRepository, NewnessService newnessService) {
         this.vehicleService = vehicleService;
         this.sponsorService = sponsorService;
         this.imageRepository = imageRepository;
+        this.newnessService = newnessService;
     }
 
     // Elimina el @ModelAttribute de aquí y usa el GlobalControllerAdvice
@@ -56,7 +60,20 @@ public class MustacheController {
     }
 
     @GetMapping("/novedades")
-    public String newness(Model model){
+    public String newness(Model model) {
+        List<Newness> newnessList = newnessService.getAllNewness();
+        List<Map<String, Object>> result = new ArrayList<>();
+        for (Newness n : newnessList) {
+            Map<String, Object> data = new HashMap<>();
+            data.put("id", n.getId());
+            data.put("title", n.getTitle());
+            data.put("date", n.getDate());
+            String desc = n.getDescription();
+            data.put("descriptionShort", desc != null && desc.length() > 80 ? desc.substring(0, 80) + "..." : desc);
+            data.put("fileName", n.getFileName());
+            result.add(data);
+        }
+        model.addAttribute("newnessList", result);
         return "newness";
     }
     @GetMapping("/patrocinadores")

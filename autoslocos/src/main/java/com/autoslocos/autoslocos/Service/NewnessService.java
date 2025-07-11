@@ -29,4 +29,8 @@ public class NewnessService {
     public void deleteNewness(Long id) {
         newnessRepository.deleteById(id);
     }
+
+    public Newness saveNewness(Newness newness) {
+        return newnessRepository.save(newness);
+    }
 }

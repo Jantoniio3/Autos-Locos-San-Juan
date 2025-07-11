@@ -4,6 +4,7 @@ package com.autoslocos.autoslocos.Controller;
 import com.autoslocos.autoslocos.Entity.Vehicle;
 import com.autoslocos.autoslocos.Entity.Sponsor;
 import com.autoslocos.autoslocos.Entity.Image;
+import com.autoslocos.autoslocos.Entity.Newness;
 import com.autoslocos.autoslocos.Repository.VehicleRepository;
 import com.autoslocos.autoslocos.Repository.ImageRepository;
 import com.autoslocos.autoslocos.Service.*;
@@ -33,6 +34,7 @@ import java.util.*;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
+import java.time.LocalDate;
 
 @Controller
 public class AdminController {
@@ -40,12 +42,14 @@ public class AdminController {
     private final VehicleRepository vehicleRepository;
     private final SponsorService sponsorService;
     private final ImageRepository imageRepository;
+    private final NewnessService newnessService;
 
-    public AdminController(VehicleRepository vehicleRepository, VehicleService vehicleService, SponsorService sponsorService, ImageRepository imageRepository) {
+    public AdminController(VehicleRepository vehicleRepository, VehicleService vehicleService, SponsorService sponsorService, ImageRepository imageRepository, NewnessService newnessService) {
         this.vehicleRepository = vehicleRepository;
         this.vehicleService = vehicleService;
         this.sponsorService = sponsorService;
         this.imageRepository = imageRepository;
+        this.newnessService = newnessService;
     }
 
 
@@ -147,5 +151,33 @@ public class AdminController {
             redirectAttributes.addFlashAttribute("sponsorMessage", "Error al eliminar el patrocinador.");
         }
         return "redirect:/patrocinadores";
+    }
+    @PostMapping("/addnewness")
+    public String addNewness(
+            @RequestParam("title") String title,
+            @RequestParam("description") String description,
+            @RequestParam(value = "image", required = false) MultipartFile image,
+            @RequestParam(value = "document", required = false) MultipartFile document,
+            RedirectAttributes redirectAttributes
+    ) {
+        try {
+            Newness newness = new Newness();
+            newness.setTitle(title);
+            newness.setDescription(description);
+            newness.setDate(LocalDate.now());
+
+            // Si hay imagen, se guarda como archivo principal; si no, se guarda el documento
+            if (image != null && !image.isEmpty()) {
+                newness.setFileInfo(image);
+            } else if (document != null && !document.isEmpty()) {
+                newness.setFileInfo(document);
+            }
+
+            newnessService.saveNewness(newness);
+            redirectAttributes.addFlashAttribute("newnessMessage", "Novedad publicada correctamente.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("newnessMessage", "Error al publicar la novedad.");
+        }
+        return "redirect:/admin";
     }
 }
