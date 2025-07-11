@@ -32,7 +32,7 @@ public class SponsorService {
     }
 
     @Transactional
-    public void deleteSponsor(Long id) {
+    public void deleteSponsorById(Long id) {
         sponsorRepository.deleteById(id);
     }
 }

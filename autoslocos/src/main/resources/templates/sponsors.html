@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="/assets/dropdown/css/style.css">
     <link rel="stylesheet" href="/assets/socicon/css/styles.css">
     <link rel="stylesheet" href="/assets/theme/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;700&display=swap&display=swap"
         as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
@@ -56,6 +57,14 @@
                             <h5 class="card-title" style="font-family: 'Onest', 'Montserrat', sans-serif; font-weight: 700; font-size: 1.5rem; color: #e67e22; text-shadow: 1px 1px 6px #fff, 0 2px 8px #e67e22a0; letter-spacing: 1px; border-bottom: 2px solid #e67e22; display: inline-block; padding-bottom: 4px; margin-bottom: 0.5rem;">
                                 {{name}}
                             </h5>
+                            {{#admin}}
+                            <form action="/delete-sponsor/{{id}}" method="post" style="display:inline;">
+                                <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+                                <button type="submit" class="btn btn-outline-danger btn-sm" title="Eliminar patrocinador" onclick="return confirm('¿Seguro que quieres eliminar este patrocinador?');">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                            {{/admin}}
                         </div>
                     </div>
                 </div>

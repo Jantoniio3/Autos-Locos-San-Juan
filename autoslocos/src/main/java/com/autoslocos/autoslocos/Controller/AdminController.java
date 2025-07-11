@@ -31,6 +31,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jakarta.servlet.http.HttpServletRequest;
 import java.util.*;
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -126,5 +127,25 @@ public class AdminController {
         }
         redirectAttributes.addFlashAttribute("galleryMessage", count + " imagen(es) subida(s) correctamente.");
         return "redirect:/admin";
+    }
+    @PostMapping("/delete-image/{id}")
+    public String deleteImage(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        try {
+            imageRepository.deleteById(id);
+            redirectAttributes.addFlashAttribute("galleryMessage", "Imagen eliminada correctamente.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("galleryMessage", "Error al eliminar la imagen.");
+        }
+        return "redirect:/galeria";
+    }
+    @PostMapping("/delete-sponsor/{id}")
+    public String deleteSponsor(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        try {
+            sponsorService.deleteSponsorById(id);
+            redirectAttributes.addFlashAttribute("sponsorMessage", "Patrocinador eliminado correctamente.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("sponsorMessage", "Error al eliminar el patrocinador.");
+        }
+        return "redirect:/patrocinadores";
     }
 }

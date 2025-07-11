@@ -25,10 +25,10 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
                     "/", "/inicio", "/contacto", "/inscriptions", 
-                    "/novedades", "/addvehicle", "/login","/patrocinadores","/galleria", 
+                    "/novedades", "/addvehicle", "/login","/patrocinadores","/galeria", 
                     "/assets/**"
                 ).permitAll()
-                .requestMatchers("/admin","/deletevehicle","/addsponsors","/uploadgallery").hasRole("ADMIN")
+                .requestMatchers("/admin","/deletevehicle","/addsponsors","/uploadgallery","/delete-image/*","/delete-sponsor/*").hasRole("ADMIN")
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form

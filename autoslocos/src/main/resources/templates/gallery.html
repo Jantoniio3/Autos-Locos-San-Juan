@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="/assets/dropdown/css/style.css">
     <link rel="stylesheet" href="/assets/socicon/css/styles.css">
     <link rel="stylesheet" href="/assets/theme/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;700&display=swap&display=swap"
         as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
@@ -37,7 +38,7 @@
                 <div class="col-12 content-head">
                     <div class="mbr-section-head mb-5">
                         <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
-                            <strong>Patrocinadores</strong>
+                            <strong>Galeria</strong>
                         </h3>
                     </div>
                 </div>
@@ -48,9 +49,17 @@
                     <div class="card h-100 shadow text-center">
                         <img src="data:image/jpeg;base64,{{base64}}" class="card-img-top" style="object-fit:cover; height:260px; background-color:#f8f9fa; margin:auto; max-width:100%;">
                         <div class="card-body">
-                            <a href="/download-image/{{id}}" class="btn btn-outline-primary btn-sm" download="{{id}}.jpg">
-                                <i class="bi bi-download"></i>Descargar imagen
+                            <a href="/download-image/{{id}}" class="btn btn-outline-primary btn-sm" download="{{id}}.jpg" title="Descargar">
+                                <i class="bi bi-download"></i>
                             </a>
+                            {{#admin}}
+                            <form action="/delete-image/{{id}}" method="post" style="display:inline;">
+                                <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+                                <button type="submit" class="btn btn-outline-danger btn-sm" title="Eliminar" onclick="return confirm('¿Seguro que quieres eliminar esta imagen?');">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                            {{/admin}}
                         </div>
                     </div>
                 </div>

@@ -60,11 +60,12 @@ public class MustacheController {
         return "newness";
     }
     @GetMapping("/patrocinadores")
-    public String sponsors(Model model) {
+    public String sponsors(Model model, HttpServletRequest request) {
         List<Sponsor> sponsors = sponsorService.getAllSponsors();
         List<Map<String, Object>> sponsorData = new ArrayList<>();
         for (Sponsor s : sponsors) {
             Map<String, Object> data = new HashMap<>();
+            data.put("id", s.getId());
             data.put("name", s.getName());
             if (s.getLogo() != null && s.getLogo().length > 0) {
                 String base64 = Base64.getEncoder().encodeToString(s.getLogo());
@@ -75,6 +76,17 @@ public class MustacheController {
             sponsorData.add(data);
         }
         model.addAttribute("sponsors", sponsorData);
+
+        // Añadir token CSRF al modelo
+        CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("_csrf", csrfToken);
+
+        // Añadir flag admin si el usuario es admin
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        boolean isAdmin = auth != null && auth.getAuthorities().stream()
+            .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+        model.addAttribute("admin", isAdmin);
+
         return "sponsors";
     }
     
@@ -115,8 +127,8 @@ public class MustacheController {
         }
     }
 
-    @GetMapping("/galleria")
-    public String gallery(Model model) {
+    @GetMapping("/galeria")
+    public String gallery(Model model, HttpServletRequest request) {
         List<Image> images = imageRepository.findAll();
         List<Map<String, String>> imageList = new ArrayList<>();
         for (Image img : images) {
@@ -127,6 +139,17 @@ public class MustacheController {
             imageList.add(map);
         }
         model.addAttribute("images", imageList);
+
+        // Añadir token CSRF al modelo
+        CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("_csrf", csrfToken);
+
+        // Añadir flag admin si el usuario es admin
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        boolean isAdmin = auth != null && auth.getAuthorities().stream()
+            .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+        model.addAttribute("admin", isAdmin);
+
         return "gallery";
     }
     @GetMapping("/download-image/{id}")

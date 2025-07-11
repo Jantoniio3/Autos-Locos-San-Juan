@@ -43,7 +43,7 @@ public class DataInitializer {
                     "Pintores Carlos", "Carpintería y Ebanistería Hermanos Yuste", "Carnes Rafa González",
                     "Administración de Lotería La Churrería", "Cocinas Aparicio Gómez",
                     "Bar Restaurante La Piscina", "Hormigones Menga",
-                    "Malafama Barber", "BAR NKJAVI", "Electricidad Peral","Pilla un Pollo"
+                    "Malafama Barber", "BAR NKJAVI", "Electricidad Peral","Pilla un Pollo","Ganaeria Limusin la Nogala"
             );
 
             for (String name : sponsorNames) {
