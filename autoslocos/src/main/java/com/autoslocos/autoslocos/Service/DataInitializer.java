@@ -38,7 +38,7 @@ public class DataInitializer {
                     "Ayuntamiento San Juan de la Nava", "Gaman Mobility", "Prime Energy", "CYC Vías", "Lamantis Performance",
                     "Transportes y Excavaciones Rodrigo", "Carnicería El Músico", "Carpintería Caraballo",
                     "Prao Cabo", "Cerebellium Apps", "Transportes y Excavaciones Galo",
-                    "Clínica de Logopedia Patricia López", "Taller Jairo García", "JM Seguros",
+                    "Clínica de Logopedia Patricia López", "Taller Jairo García",
                     "Huevos Redondo", "Taller Chapa y Pintura RG", "Hijos de Justo", "RMC, S.L.",
                     "Pintores Carlos", "Carpintería y Ebanistería Hermanos Yuste", "Carnes Rafa González",
                     "Administración de Lotería La Churrería", "Cocinas Aparicio Gómez",
