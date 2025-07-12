@@ -60,7 +60,7 @@ public class MustacheController {
     }
 
     @GetMapping("/novedades")
-    public String newness(Model model) {
+    public String newness(Model model, HttpServletRequest request) {
         List<Newness> newnessList = newnessService.getAllNewness();
         List<Map<String, Object>> result = new ArrayList<>();
         for (Newness n : newnessList) {
@@ -70,10 +70,20 @@ public class MustacheController {
             data.put("date", n.getDate());
             String desc = n.getDescription();
             data.put("descriptionShort", desc != null && desc.length() > 80 ? desc.substring(0, 80) + "..." : desc);
-            data.put("fileName", n.getFileName());
             result.add(data);
         }
         model.addAttribute("newnessList", result);
+
+        // Añade el token CSRF al modelo
+        CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("_csrf", csrfToken);
+
+        // Añade el flag admin si el usuario es admin
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        boolean isAdmin = auth != null && auth.isAuthenticated() && auth.getAuthorities().stream()
+            .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+        model.addAttribute("admin", isAdmin);
+
         return "newness";
     }
     @GetMapping("/patrocinadores")

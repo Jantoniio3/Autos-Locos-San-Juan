@@ -180,4 +180,14 @@ public class AdminController {
         }
         return "redirect:/admin";
     }
+    @PostMapping("/delete-newness/{id}")
+    public String deleteNewness(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        try {
+            newnessService.deleteNewness(id);
+            redirectAttributes.addFlashAttribute("newnessMessage", "Novedad eliminada correctamente.");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("newnessMessage", "Error al eliminar la novedad.");
+        }
+        return "redirect:/novedades";
+    }
 }

@@ -28,7 +28,7 @@ public class SecurityConfig {
                     "/novedades", "/addvehicle", "/login","/patrocinadores","/galeria", 
                     "/assets/**"
                 ).permitAll()
-                .requestMatchers("/admin","/deletevehicle","/addsponsors","/uploadgallery","/delete-image/*","/delete-sponsor/*","/addnewness").hasRole("ADMIN")
+                .requestMatchers("/admin","/deletevehicle","/addsponsors","/uploadgallery","/delete-image/*","/delete-sponsor/*","/addnewness","/delete-newness/*").hasRole("ADMIN")
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
