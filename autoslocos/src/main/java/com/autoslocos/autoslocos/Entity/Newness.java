@@ -18,7 +18,8 @@ public class Newness {
     @Column(name = "title", nullable = false, unique = true)
     private String title;
 
-    @Column(name = "description", nullable = false)
+    @Lob
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
     @Lob

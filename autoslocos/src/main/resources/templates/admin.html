@@ -106,7 +106,7 @@
     <div id="novedades" class="admin-section">
         <h2>Novedades</h2>
         <form id="newnessForm" enctype="multipart/form-data" action="/addnewness" method="post" class="mb-4">
-            <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+            <input type="hidden" name="{{_csrf.parameterName}}" value="{{_csrf.token}}">
             <div class="mb-3">
                 <label for="newnessTitle" class="form-label">Título</label>
                 <input type="text" class="form-control" id="newnessTitle" name="title" required>
