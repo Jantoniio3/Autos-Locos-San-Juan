@@ -32,7 +32,7 @@ public class NewnessService {
     }
 
     public List<Newness> getAllNewness() {
-        return newnessRepository.findAll();
+        return newnessRepository.findAllByOrderByDateDesc();
     }
 
     public void deleteNewness(Long id) {

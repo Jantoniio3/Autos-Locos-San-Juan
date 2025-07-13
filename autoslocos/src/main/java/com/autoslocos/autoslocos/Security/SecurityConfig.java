@@ -26,7 +26,7 @@ public class SecurityConfig {
                 .requestMatchers(
                     "/", "/inicio", "/contacto", "/inscriptions", 
                     "/novedades", "/addvehicle", "/login","/patrocinadores","/galeria", 
-                    "/assets/**","/novedades/**","/politica-cookies","/novedades/documento/**"
+                    "/assets/**","/novedades/**","/politica-cookies","/novedades/documento/**","/download-image/**"
                 ).permitAll()
                 .requestMatchers("/admin","/deletevehicle","/addsponsors","/uploadgallery","/delete-image/*","/delete-sponsor/*","/addnewness","/delete-newness/*").hasRole("ADMIN")
                 .anyRequest().authenticated()
