@@ -158,7 +158,8 @@ public class AdminController {
             @RequestParam("description") String description,
             @RequestParam(value = "image", required = false) MultipartFile image,
             @RequestParam(value = "document", required = false) MultipartFile document,
-            RedirectAttributes redirectAttributes
+            RedirectAttributes redirectAttributes,
+            HttpServletRequest request
     ) {
         try {
             newnessService.addNewness(LocalDate.now(), title, description, image, document);
@@ -166,6 +167,8 @@ public class AdminController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("newnessMessage", "Error al publicar la novedad.");
         }
+        CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");
+        // model.addAttribute("_csrf", csrfToken); // 'model' is not available here, so this line should be removed or handled elsewhere
         return "redirect:/admin";
     }
     @PostMapping("/delete-newness/{id}")
