@@ -34,6 +34,16 @@ public class Newness {
     @Column(name = "file_size")
     private Long fileSize;
 
+    @Lob
+    @Column(name = "image_data", columnDefinition = "LONGBLOB")
+    private byte[] imageData;
+
+    @Column(name = "image_name")
+    private String imageName;
+
+    @Column(name = "image_type")
+    private String imageType;
+
     // Empty constructor
     public Newness() {
     }
@@ -106,6 +116,30 @@ public class Newness {
         this.fileSize = fileSize;
     }
 
+    public byte[] getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(byte[] imageData) {
+        this.imageData = imageData;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
+    public String getImageType() {
+        return imageType;
+    }
+
+    public void setImageType(String imageType) {
+        this.imageType = imageType;
+    }
+
     // Método conveniente para manejar archivos
     public void setFileInfo(MultipartFile file) throws IOException {
         if (file != null && !file.isEmpty()) {
@@ -113,6 +147,15 @@ public class Newness {
             this.fileType = file.getContentType();
             this.fileSize = file.getSize();
             this.fileData = file.getBytes();
+        }
+    }
+
+    // Método para manejar la imagen
+    public void setImageInfo(MultipartFile image) throws IOException {
+        if (image != null && !image.isEmpty()) {
+            this.imageName = image.getOriginalFilename();
+            this.imageType = image.getContentType();
+            this.imageData = image.getBytes();
         }
     }
 }

@@ -46,21 +46,22 @@
             <div class="row">
                 {{#newnessList}}
                 <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card h-100 shadow">
-                        <div class="card-body">
-                            <h5 class="card-title">{{title}}</h5>
-                            <p class="card-text">{{descriptionShort}}</p>
-                            <p class="card-text"><small class="text-muted">Fecha: {{date}}</small></p>
-                            {{#admin}}
-                            <form action="/delete-newness/{{id}}" method="post" style="display:inline;">
-                                <input type="hidden" name="_csrf" value="{{_csrf.token}}">
-                                <button type="submit" class="btn btn-outline-danger btn-sm" title="Eliminar novedad" onclick="return confirm('¿Seguro que quieres eliminar esta novedad?');">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                            </form>
-                            {{/admin}}
+                    <a href="/novedades/{{id}}" class="text-decoration-none" style="color:inherit;">
+                        <div class="card h-100 shadow" style="cursor:pointer;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{title}}</h5>
+                                <p class="card-text">{{descriptionShort}}</p>
+                                <p class="card-text"><small class="text-muted">Fecha: {{date}}</small></p>
+                                {{#admin}}
+                                <form action="/delete-newness/{{id}}" method="post" style="display:inline;">
+                                    <input type="hidden" name="_csrf" value="{{_csrf.token}}">
+                                    <button type="submit" class="btn btn-outline-danger btn-sm" title="Eliminar novedad" onclick="return confirm('¿Seguro que quieres eliminar esta novedad?');">
+                                        <i class="bi bi-trash"></i>
+                                    </form>
+                                    {{/admin}}
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 {{/newnessList}}
                 {{^newnessList}}

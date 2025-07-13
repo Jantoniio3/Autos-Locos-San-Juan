@@ -1,5 +1,6 @@
 package com.autoslocos.autoslocos.Controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,5 +29,11 @@ public class GlobalController {
             return auth.getName();
         }
         return null;
+    }
+
+    @ModelAttribute("cookiesAccepted")
+    public boolean cookiesAccepted(HttpServletRequest request) {
+        return request.getSession(false) != null &&
+               Boolean.TRUE.equals(request.getSession(false).getAttribute("cookiesAccepted"));
     }
 }

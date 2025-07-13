@@ -86,6 +86,48 @@ public class MustacheController {
 
         return "newness";
     }
+
+    @GetMapping("/novedades/{id}")
+    public String newnessDetails(@PathVariable Long id, Model model, HttpServletRequest request) {
+        Newness newness = newnessService.findById(id);
+        if (newness == null) {
+            return "redirect:/novedades";
+        }
+
+        // Pasar los datos de la novedad al modelo
+        model.addAttribute("id", newness.getId());
+        model.addAttribute("title", newness.getTitle());
+        model.addAttribute("date", newness.getDate());
+        model.addAttribute("description", newness.getDescription());
+
+        // Imagen (si existe)
+        if (newness.getImageData() != null && newness.getImageData().length > 0) {
+            model.addAttribute("imageData", Base64.getEncoder().encodeToString(newness.getImageData()));
+            model.addAttribute("imageType", newness.getImageType());
+            model.addAttribute("imageName", newness.getImageName());
+        }
+
+        // Documento (si existe)
+        if (newness.getFileData() != null && newness.getFileData().length > 0) {
+            model.addAttribute("fileData", true); // Solo para mostrar el bloque
+            model.addAttribute("fileName", newness.getFileName());
+            model.addAttribute("fileType", newness.getFileType());
+            model.addAttribute("fileSize", newness.getFileSize());
+        }
+
+        // Añadir token CSRF al modelo
+        CsrfToken csrfToken = (CsrfToken) request.getAttribute("_csrf");
+        model.addAttribute("_csrf", csrfToken);
+
+        // Añadir flag admin si el usuario es admin
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        boolean isAdmin = auth != null && auth.isAuthenticated() && auth.getAuthorities().stream()
+            .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+        model.addAttribute("admin", isAdmin);
+
+        return "newnessdetails";
+    }
+
     @GetMapping("/patrocinadores")
     public String sponsors(Model model, HttpServletRequest request) {
         List<Sponsor> sponsors = sponsorService.getAllSponsors();
@@ -192,5 +234,34 @@ public class MustacheController {
             return new ResponseEntity<>(image.getImageData(), headers, HttpStatus.OK);
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("/aceptar-cookies")
+    public String aceptarCookies(HttpServletRequest request, @RequestHeader(value = "Referer", required = false) String referer) {
+        request.getSession(true).setAttribute("cookiesAccepted", true);
+        // Redirige a la página anterior o al inicio
+        if (referer != null && !referer.isEmpty()) {
+            return "redirect:" + referer;
+        }
+        return "redirect:/";
+    }
+
+    @GetMapping("/politica-cookies")
+    public String politicaCookies(Model model, HttpServletRequest request) {
+
+        return "cookies";
+    }
+
+    @GetMapping("/novedades/{id}/descargar-archivo")
+    public ResponseEntity<byte[]> descargarArchivo(@PathVariable Long id) {
+        Newness newness = newnessService.findById(id);
+        if (newness == null || newness.getFileData() == null || newness.getFileData().length == 0) {
+            return ResponseEntity.notFound().build();
+        }
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentDisposition(ContentDisposition.attachment().filename(newness.getFileName()).build());
+        headers.setContentType(MediaType.parseMediaType(newness.getFileType()));
+        headers.setContentLength(newness.getFileData().length);
+        return new ResponseEntity<>(newness.getFileData(), headers, HttpStatus.OK);
     }
 }

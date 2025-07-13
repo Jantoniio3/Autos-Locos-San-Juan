@@ -161,19 +161,7 @@ public class AdminController {
             RedirectAttributes redirectAttributes
     ) {
         try {
-            Newness newness = new Newness();
-            newness.setTitle(title);
-            newness.setDescription(description);
-            newness.setDate(LocalDate.now());
-
-            // Si hay imagen, se guarda como archivo principal; si no, se guarda el documento
-            if (image != null && !image.isEmpty()) {
-                newness.setFileInfo(image);
-            } else if (document != null && !document.isEmpty()) {
-                newness.setFileInfo(document);
-            }
-
-            newnessService.saveNewness(newness);
+            newnessService.addNewness(LocalDate.now(), title, description, image, document);
             redirectAttributes.addFlashAttribute("newnessMessage", "Novedad publicada correctamente.");
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("newnessMessage", "Error al publicar la novedad.");

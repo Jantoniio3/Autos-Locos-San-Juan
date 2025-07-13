@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="generator" content="Mobirise v6.0.5, mobirise.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico" type="image/x-icon">
+    <title>Autos Locos San Juan</title>
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="/assets/web/assets/mobirise-icons2/mobirise2.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="/assets/parallax/jarallax.css">
+    <link rel="stylesheet" href="/assets/dropdown/css/style.css">
+    <link rel="stylesheet" href="/assets/socicon/css/styles.css">
+    <link rel="stylesheet" href="/assets/theme/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/assets/mobirise/css/mbr-additional.css?v=NzfGCw" type="text/css">
+</head>
+<body>
+
+{{>header}}
+
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center mb-4">
+            <div class="col-md-10">
+                <h2 class="mb-2 display-5"><strong>{{title}}</strong></h2>
+                <p class="text-muted">Fecha: {{date}}</p>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="row align-items-start">
+                    <div class="col-md-8">
+                        <div class="mb-4">
+                            <p class="lead">{{description}}</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4 text-end">
+                        {{#imageData}}
+                        <div class="mb-4">
+                            <img src="data:{{imageType}};base64,{{imageData}}" alt="{{imageName}}" class="img-thumbnail" style="max-width: 100%;">
+                        </div>
+                        {{/imageData}}
+                    </div>
+                </div>
+
+                {{#fileData}}
+                <div class="mt-4">
+                    <a href="/novedades/{{id}}/descargar-archivo" class="btn btn-primary">
+                        <i class="bi bi-download"></i> Descargar documento
+                    </a>
+                    <p class="mt-2"><small class="text-muted">{{fileName}} ({{fileType}}, {{fileSize}} bytes)</small></p>
+                </div>
+                {{/fileData}}
+
+                <div class="mt-5">
+                    <a href="/novedades" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left"></i> Volver a novedades
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{>footer}}
+
+<script src="/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/theme/js/script.js"></script>
+</body>
+</html>

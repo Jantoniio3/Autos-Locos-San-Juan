@@ -28,8 +28,30 @@
 
 
 </head>
+
 <body>
-        <!--Footer-->
+    <!-- Banner de cookies -->
+    {{^cookiesAccepted}}
+    <div id="cookie-banner"
+        style="position:fixed;bottom:0;left:0;width:100%;background:#222;color:#fff;padding:15px;z-index:9999;display:none;text-align:center;">
+        Utilizamos cookies para mejorar tu experiencia. <a href="/politica-cookies"
+            style="color:#ffd700;text-decoration:underline;">Saber más</a>
+        <button id="accept-cookies" style="margin-left:20px;" class="btn btn-sm btn-primary">Aceptar</button>
+    </div>
+    {{/cookiesAccepted}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!localStorage.getItem('cookiesAccepted')) {
+                document.getElementById('cookie-banner').style.display = 'block';
+            }
+            document.getElementById('accept-cookies').onclick = function() {
+                localStorage.setItem('cookiesAccepted', 'true');
+                document.getElementById('cookie-banner').style.display = 'none';
+            }
+        });
+    </script>
+
+    <!--Footer-->
     <section data-bs-version="5.1" class="footer3 cid-uN3KWNVkIH" once="footers" id="footer-3-uN3KWNVkIH">
         <div class="container">
             <div class="row">
@@ -63,12 +85,14 @@
                         © 2025 Autos Locos. Todos los derechos reservados.
                     </p>
                     <p style="font-size: 0.8rem; color: #bbb; text-align: center; margin-top: 10px;">
-                        Created and designed by <a href="https://www.instagram.com/jantoniio3" target="_blank" style="color: #bbb; text-decoration: none;">@jantoniio3</a>
+                        Created and designed by <a href="https://www.instagram.com/jantoniio3" target="_blank"
+                            style="color: #bbb; text-decoration: none;">@jantoniio3</a>
                     </p>
                 </div>
             </div>
         </div>
     </section>
     <!--Footer end-->
-    </body>
-    </html>
+</body>
+
+</html>
