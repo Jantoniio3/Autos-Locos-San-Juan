@@ -11,6 +11,8 @@ Aplicación web para la gestión y difusión del evento de carreras de **Autos L
 - ⚡ Spring Boot (backend)  
 - 🎨 HTML + Bootstrap 5 (frontend)  
 - 🗄️ SQL (base de datos)  
+- 🐳 Docker (contenedores y despliegue)  
+- ☁️ Digital Ocean (hosting en la nube)  
 
 ---
 
@@ -18,5 +20,6 @@ Aplicación web para la gestión y difusión del evento de carreras de **Autos L
 - 📋 Inscripción y gestión de equipos  
 - 🏆 Clasificaciones y resultados  
 - 📱 Interfaz responsive y sencilla  
+- 🌐 Despliegue optimizado con Docker + Digital Ocean  
 
 ---
